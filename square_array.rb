@@ -1,30 +1,22 @@
-def square_array(array)
-  newArray=[]
-array.each do |numbers| # The element, contained within the pipes,
-                        # is like a placeholder. Whatever you put in
-                        # the pipes will be used in the block to represent
-                        #each element of the array in turn.
+describe '#square_array' do
 
-numbers=numbers**2 # square
-newArray<<numbers # adding to the newArray
-end     #end for do
-newArray # call
-end     #end for def
-# # expectation examples
-numbers = [1,2,3]
+  it 'does not call on collect/map or inject' do
+    numbers = [1,2,3]
+    expect(numbers).to_not receive(:collect)
+    expect(numbers).to_not receive(:map)
+    expect(numbers).to_not receive(:inject)
+    square_array(numbers)
+  end
 
- square_array(numbers)
-# # => [1,4,9])
- 
-new_numbers = [9,10,16,25]
+  it 'calls on each' do
+    numbers = [1,2,3]
+    expect(numbers).to receive(:each)
+    square_array(numbers)
+  end
 
-square_array(new_numbers)
-# # => [81,100,256,625]
- basket = ["apple 1","apple 2","apple 3","apple 4","apple 5","apple 6","apple 7","apple 8","apple 9","apple 10"]
+  it 'should square the elements in an array' do
+    expect(square_array([1,2,3])).to eq([1,4,9])
+    expect(square_array([9,10,16,25])).to eq([81,100,256,625])
+  end
 
-# # Step 1,2,3,4,5
- basket.each do |apple|
-     puts "Taking out #{apple}"
- endket.each do |apple|
-  # #    puts "Taking out #{apple}"
- # # end
+end
